@@ -1,0 +1,79 @@
+# configs/base.yaml
+
+EXPERIMENT:
+  SEED: 42
+  ROOT_DIR: experiments         # 所有日志与输出目录的根路径
+  OUTPUT_DIR: null              # 可留空，Lightning 会自动生成
+  RESUME: null                  # 是否从某个 checkpoint 恢复
+  VAL_PERIOD: 1                 # 每训练几个 epoch 做一次 val
+
+DEVICE:
+  GPUS: 1
+  TPU_CORES: null
+  ACCELERATOR: auto             # 可设为 'gpu' 或 'auto'
+  USE_DDPPLUGIN: false
+  SYNC_BN: false
+  PRECISION: 32
+  CUDNN:
+    BENCHMARK: true
+    DETERMINISTIC: false
+
+TRAIN:
+  BATCH_SIZE: 16
+  BATCH_ACCUMULATION: 1
+  NUM_WORKERS: 0
+  PIN_MEMORY: false
+  SHUFFLE: true
+  DROP_LAST: true
+
+VAL:
+  BATCH_SIZE: 16
+  NUM_WORKERS: 0
+  PIN_MEMORY: false
+  USE_TEST_AS_VAL: false
+  VAL_RATIO: 0.1
+
+TEST:
+  RUN_TEST: false
+  BATCH_SIZE: 16
+  NUM_WORKERS: 0
+  PIN_MEMORY: false
+
+SCHEDULER:
+  EPOCHS: 20  # 总训练轮数
+  LR: 0.001
+  LR_STEP: 10
+  LR_GAMMA: 0.1
+
+LOG:
+  SHOW_PROGRESS_BAR: true
+  PROGRESS_BAR_REFRESH_RATE: 20
+  SHOW_TRAIN_IN_PROGRESS_BAR: true
+  LOG_ETA: true
+  LOG_PERIOD: 150
+
+  USE_TENSORBOARD: true
+  TENSORBOARD:
+    LOG_DIR: tensorboard
+    DEFAULT_HP_METRIC: false
+
+  USE_WANDB: false
+  WANDB:
+    PROJECT: null
+    RUN_ID: null
+    GROUP: null
+
+  USE_CONSOLE_LOGGER: true
+  CONSOLE:
+    SHOW_CONFIG: true
+    TIMESTAMP_COLOR: green
+    STAGE_NAME_COLOR: green
+    TRAIN_KEY_COLOR: magenta
+    VAL_KEY_COLOR: cyan
+
+DEBUG:
+  DEBUG: false
+  FAST_DEV_RUN: false
+  NUM_SANITY_VAL_STEPS: 2
+  PROFILER: null
+  WEIGHT_SUMMARY: top
