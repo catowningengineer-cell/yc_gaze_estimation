@@ -1,22 +1,31 @@
 import torch
 import torch.nn.functional as F
 
+def _pitchyaw_to_vec(p: torch.Tensor) -> torch.Tensor:
+    pitch, yaw = p[:, 0], p[:, 1]
+    x = torch.cos(pitch) * torch.sin(yaw)
+    y = torch.sin(pitch)
+    z = torch.cos(pitch) * torch.cos(yaw)
+    v = torch.stack([x, y, z], dim=1)
+    return F.normalize(v, dim=1)
 
-def angular_error(pred, label):
+def _as_unit_vec(t: torch.Tensor) -> torch.Tensor:
+    if t.dim() != 2 or t.size(1) not in (2, 3):
+        raise ValueError(f"Unexpected tensor shape {tuple(t.shape)}; expect [B,2] or [B,3].")
+    if t.size(1) == 2:
+        return _pitchyaw_to_vec(t)
+    return F.normalize(t, dim=1)
 
-    pred = F.normalize(pred, dim=1)
-    label = F.normalize(label, dim=1)
-    cos_sim = (pred * label).sum(dim=1).clamp(-1.0, 1.0)
-    angle = torch.acos(cos_sim)  # in radians
-    return angle * 180.0 / torch.pi
+@torch.no_grad()
+def angular_error(pred: torch.Tensor, gt: torch.Tensor) -> torch.Tensor:
+    v1, v2 = _as_unit_vec(pred), _as_unit_vec(gt)
+    dot = (v1 * v2).sum(-1).clamp(-1.0 + 1e-7, 1.0 - 1e-7)
+    return torch.acos(dot) * (180.0 / math.pi)
 
-
-def angular_loss(pred, label):
-    pred = F.normalize(pred, dim=1)
-    label = F.normalize(label, dim=1)
-    cosine = torch.clamp(torch.sum(pred * label, dim=1), -0.9999, 0.9999)
-    angle = torch.acos(cosine)  # [B], in radians
-    return torch.mean(angle)
+def angular_loss(pred: torch.Tensor, gt: torch.Tensor) -> torch.Tensor:
+    v1, v2 = _as_unit_vec(pred), _as_unit_vec(gt)
+    dot = (v1 * v2).sum(-1).clamp(-1.0 + 1e-7, 1.0 - 1e-7)
+    return torch.acos(dot).mean()
 
 
 def train_one_epoch(model, dataloader, optimizer, device):
@@ -117,3 +126,4 @@ def load_pretrained_model(model, pretrained_path):
         print(f"Failed to load pretrained model: {e}")
 
     return model
+
