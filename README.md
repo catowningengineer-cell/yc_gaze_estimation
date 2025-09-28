@@ -32,3 +32,8 @@ python tools/preprocess_mpiigaze.py --dataset datasets/MPIIGaze -o datasets/
 bash scripts/download_mpiifacegaze_dataset.sh
 python tools/preprocess_mpiifacegaze.py --dataset datasets/MPIIFaceGaze_normalized -o datasets/
 ```
+或自行下载
+
+### ETH-XGaze (拓展部分）
+
+官方数据集申请：https://ait.ethz.ch/xgaze
