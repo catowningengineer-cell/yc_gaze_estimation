@@ -7,7 +7,9 @@ A hybrid CNN+Transformer model for gaze estimation using PyTorch. It predicts ga
 ## 配置环境
 
 系统：Windows 11 / Ubuntu 20.04，以Ubuntu 20.04为准
+
 显卡：NVIDIA RTX3060/4090
+
 依赖：
 ```bash
 conda create -n gaze-env python=3.10
