@@ -54,7 +54,7 @@ def get_args():
     parser.add_argument('--load_pretrained', action='store_true',
                         help='Whether to load pretrained weights')
     parser.add_argument('--pretrained_path', type=str,
-                        default='D:/gaze_estimation/checkpoints/model_epoch16_pre.pt',
+                        default='/root/code/gaze_estimation/checkpoints/model_epoch16_pre.pt',
                         help='Path to pretrained .pt file')
 
     # === 模型保存与日志 ===
@@ -72,4 +72,5 @@ def get_args():
                         help='Checkpoint file to load for evaluation or testing')
 
     return parser.parse_args()
+
 
