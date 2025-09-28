@@ -44,3 +44,13 @@ python tools/preprocess_mpiifacegaze.py --dataset datasets/MPIIFaceGaze_normaliz
 python preprocessing/preprocess_mpiigaze.py
 python preprocessing/preprocess_mpiifacegaze.py
 ```
+## 训练
+
+余弦退火学习率调度
+```bash
+python train.py --lr_scheduler cosine
+```
+```bash
+python train_facegaze.py --lr_scheduler cosine
+```
+
