@@ -98,14 +98,12 @@ def load_pretrained_model(model, pretrained_path):
     try:
         state_dict = torch.load(pretrained_path, map_location='cpu')
 
-        # 判断是否是完整 checkpoint（带有'model_state_dict'键）
         if isinstance(state_dict, dict) and 'model_state_dict' in state_dict:
             print("Detected checkpoint format with 'model_state_dict'")
             state_dict = state_dict['model_state_dict']
         else:
             print("Detected pure state_dict format")
-
-        # 过滤掉不兼容的参数（包括 pos_embed 和 regressor）
+            
         filtered_state_dict = {}
         for k, v in state_dict.items():
             if 'pos_embed' in k:
@@ -117,7 +115,6 @@ def load_pretrained_model(model, pretrained_path):
             if k in model.state_dict():
                 filtered_state_dict[k] = v
 
-        # 加载
         missing_keys, unexpected_keys = model.load_state_dict(filtered_state_dict, strict=False)
         print("Model loaded successfully (except for skipped layers).")
         if missing_keys:
@@ -129,4 +126,5 @@ def load_pretrained_model(model, pretrained_path):
         print(f"Failed to load pretrained model: {e}")
 
     return model
+
 
