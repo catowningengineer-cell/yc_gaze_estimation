@@ -17,3 +17,18 @@ conda activate gaze-env
 conda install pytorch=2.5.1 torchvision=0.20.1 pytorch-cuda=12.1 -c pytorch -c nvidia
 pip install h5py scipy pandas tqdm opencv-python
 ```
+## 下载数据集及预处理
+
+### MPIIGaze
+
+```bash
+bash scripts/download_mpiigaze_dataset.sh
+python tools/preprocess_mpiigaze.py --dataset datasets/MPIIGaze -o datasets/
+```
+
+### MPIIFaceGaze
+
+```bash
+bash scripts/download_mpiifacegaze_dataset.sh
+python tools/preprocess_mpiifacegaze.py --dataset datasets/MPIIFaceGaze_normalized -o datasets/
+```
