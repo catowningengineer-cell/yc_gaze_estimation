@@ -25,7 +25,7 @@ class GazeTransformer(nn.Module):
         self.conv_proj = nn.Conv2d(256, feature_dim, kernel_size=1)
 
         # 可学习的位置编码
-        self.pos_embed = nn.Parameter(torch.randn(1, 100, feature_dim))  # 最多 100 patch
+        self.pos_embed = nn.Parameter(torch.randn(1, 60, feature_dim))  # 最多 100 patch
 
         # Transformer Encoder
         encoder_layer = nn.TransformerEncoderLayer(
@@ -74,3 +74,4 @@ def build_model_from_config(config):
         transformer_heads=config['MODEL']['TRANSFORMER']['HEADS'],
         use_headpose=config['MODEL']['TRANSFORMER']['USE_HEADPOSE']
     )
+
