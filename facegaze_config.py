@@ -7,7 +7,7 @@ def get_args():
 
     # === 数据路径 ===
     parser.add_argument('--h5_path', type=str,
-                        default='D:/gaze_estimation/data/MPIIFaceGaze_processed/MPIIFaceGaze.h5',
+                        default='/root/code/gaze_estimation/data/mpiifacegaze_processed/MPIIFaceGaze.h5',
                         help='Path to the MPIIFaceGaze.h5 file')
 
     # === 被试划分 ===
@@ -53,15 +53,20 @@ def get_args():
     parser.add_argument('--load_pretrained', action='store_true',
                         help='Whether to load pretrained weights')
     parser.add_argument('--pretrained_path', type=str,
-                        default='D:/gaze_estimation/checkpoints/model_epoch16_pre.pt',
+                        default='/root/code/gaze_estimation/checkpoints/model_epoch16_pre.pt',
                         help='Path to pretrained .pt file')
 
     # === 日志与模型保存 ===
-    parser.add_argument('--log_dir', type=str, default='runs_facegaze')
-    parser.add_argument('--save_dir', type=str, default='checkpoints_facegaze')
+    parser.add_argument('--log_dir', type=str,
+                        default='/root/autodl-tmp/yutong_robotics/face_logs',
+                        help='Directory for TensorBoard logs')
+    parser.add_argument('--save_dir', type=str,
+                        default='/root/autodl-tmp/yutong_robotics/face_checkpoints',
+                        help='Directory for saving model checkpoints')
     parser.add_argument('--save_freq', type=int, default=5)
 
     # === 测试用 ===
     parser.add_argument('--ckpt_path', type=str, default=None)
 
     return parser.parse_args()
+
