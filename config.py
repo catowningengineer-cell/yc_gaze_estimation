@@ -7,7 +7,7 @@ def get_args():
 
     # === 数据路径 ===
     parser.add_argument('--h5_path', type=str,
-                        default='D:/gaze_estimation/data/MPIIGaze_processed/MPIIGaze.h5',
+                        default='/root/code/gaze_estimation/data/mpiifacegaze_processed/MPIIGaze.h5',
                         help='Path to the MPIIGaze.h5 file')
 
     # === 被试划分 ===
@@ -58,9 +58,11 @@ def get_args():
                         help='Path to pretrained .pt file')
 
     # === 模型保存与日志 ===
-    parser.add_argument('--log_dir', type=str, default='runs',
+    parser.add_argument('--log_dir', type=str,
+                        default='/root/autodl-tmp/yutong_robotics/logs',
                         help='Directory for TensorBoard logs')
-    parser.add_argument('--save_dir', type=str, default='checkpoints',
+    parser.add_argument('--save_dir', type=str,
+                        default='/root/autodl-tmp/yutong_robotics/checkpoints',
                         help='Directory for saving model checkpoints')
     parser.add_argument('--save_freq', type=int, default=5,
                         help='Save model every N epochs')
@@ -70,3 +72,4 @@ def get_args():
                         help='Checkpoint file to load for evaluation or testing')
 
     return parser.parse_args()
+
