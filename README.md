@@ -37,3 +37,10 @@ python tools/preprocess_mpiifacegaze.py --dataset datasets/MPIIFaceGaze_normaliz
 ### ETH-XGaze (拓展部分）
 
 官方数据集申请：https://ait.ethz.ch/xgaze
+
+### 预处理
+
+```bash
+python preprocessing/preprocess_mpiigaze.py
+python preprocessing/preprocess_mpiifacegaze.py
+```
